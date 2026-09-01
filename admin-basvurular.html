@@ -1,0 +1,19 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ICE NETWORK | Başvurular</title><link rel="stylesheet" href="style.css"></head><body>
+<nav class="nav"><a class="brand" href="index.html">❄ <span>ICE</span> NETWORK</a><div class="links"><a href="index.html">Site</a><a class="active" href="admin-basvurular.html">Başvurular</a></div></nav>
+<main class="wrap"><div class="heading"><h1>Başvuru Yönetimi</h1><p>Gelen yetkili başvurularını buradan görüntüle.</p></div>
+<div class="adminbar"><span class="count" id="count">0 başvuru</span><button class="btn secondary danger" onclick="clearApps()">TÜMÜNÜ SİL</button></div>
+<div id="list" class="app-list"></div></main>
+<footer class="footer">ICE NETWORK Yönetim Paneli</footer>
+<script>
+function render(){
+const apps=JSON.parse(localStorage.getItem("iceApplications")||"[]");
+document.getElementById("count").innerText=apps.length+" başvuru";
+const list=document.getElementById("list");
+if(!apps.length){list.innerHTML='<div class="empty">Henüz başvuru yok.</div>';return}
+list.innerHTML=apps.slice().reverse().map((a,i)=>`<div class="app"><div class="app-top"><div><div class="app-name">${esc(a.mc)}</div><div class="app-role">${esc(a.role)}</div></div><small class="muted">${esc(a.date)}</small></div><div class="app-meta"><div class="meta">Discord<b>${esc(a.dc)}</b></div><div class="meta">Yaş<b>${esc(a.age)}</b></div><div class="meta">Aktiflik<b>${esc(a.active)}</b></div></div><div class="meta" style="margin-top:8px">Deneyimler<b>${esc(a.experience)}</b></div><div class="meta" style="margin-top:8px">Neden seçmeliyiz?<b>${esc(a.why)}</b></div><button class="btn secondary danger" style="margin-top:12px" onclick="del(${a.id})">BAŞVURUYU SİL</button></div>`).join("");
+}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function del(id){let a=JSON.parse(localStorage.getItem("iceApplications")||"[]").filter(x=>x.id!==id);localStorage.setItem("iceApplications",JSON.stringify(a));render()}
+function clearApps(){if(confirm("Tüm başvurular silinsin mi?")){localStorage.removeItem("iceApplications");render()}}
+render();
+</script></body></html>

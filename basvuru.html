@@ -1,0 +1,15 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ICE NETWORK | Yetkili Başvurusu</title><link rel="stylesheet" href="style.css"></head><body>
+<nav class="nav"><a class="brand" href="index.html">❄ <span>ICE</span> NETWORK</a><div class="links"><a href="index.html">Ana Sayfa</a><a href="sunucular.html">Sunucular</a><a class="active" href="basvuru.html">Başvuru</a><a href="yetkililer.html">Yetkililer</a><a href="kurallar.html">Kurallar</a><a href="magaza.html">Mağaza</a><a href="discord.html">Discord</a><a href="admin-basvurular.html">Yönetim</a></div></nav>
+<main class="wrap"><div class="heading"><h1>Yetkili Başvurusu</h1><p>ICE NETWORK ekibine katılmak için formu doldur.</p></div>
+<div class="panel"><form class="form" id="applicationForm"><label>Minecraft Adı<input id="mc" required placeholder="Oyuncu adın"></label><label>Discord Adı<input id="dc" required placeholder="Discord kullanıcı adın"></label><label>Yaş<input id="age" required type="number" min="10" max="99"></label><label>Pozisyon<select id="role" required><option value="">Seçiniz</option><option>Rehber</option><option>Moderatör</option><option>Admin</option><option>Medya</option><option>Builder</option></select></label><label>Günlük Aktiflik<input id="active" required placeholder="Örn. 4-6 saat"></label><label>Deneyimlerin<textarea id="experience" required></textarea></label><label>Neden seni seçmeliyiz?<textarea id="why" required></textarea></label><button class="submit">BAŞVURUYU GÖNDER</button></form></div></main>
+<footer class="footer">© 2026 ICE NETWORK</footer>
+<script>
+document.getElementById("applicationForm").addEventListener("submit",function(e){
+e.preventDefault();
+const apps=JSON.parse(localStorage.getItem("iceApplications")||"[]");
+apps.push({id:Date.now(),mc:mc.value,dc:dc.value,age:age.value,role:role.value,active:active.value,experience:experience.value,why:why.value,date:new Date().toLocaleString("tr-TR")});
+localStorage.setItem("iceApplications",JSON.stringify(apps));
+alert("✓ Başvurun başarıyla kaydedildi!");
+this.reset();
+});
+</script></body></html>
